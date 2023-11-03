@@ -1,4 +1,4 @@
-namespace apiRest7DDD
+namespace Presentation
 {
     public class WeatherForecast
     {
