@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EntityFramework.Repositories
 {
-    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    public abstract class EntityFrameworkBaseRepository<TEntity> : IEntityFrameworkBaseRepository<TEntity> where TEntity : class
     {
         private readonly DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
-        public RepositoryBase(DbContext context)
+        public EntityFrameworkBaseRepository(DbContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();

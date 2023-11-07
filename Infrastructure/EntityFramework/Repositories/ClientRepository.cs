@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EntityFramework.Repositories
 {
-    public class ClientRepository : RepositoryBase<Client>, IClientRepository
+    public class ClientRepository : EntityFrameworkBaseRepository<Client>, IEntityFrameworkClientRepository
     {
         public ClientRepository(ApiRestDbContext context) : base(context)
         {

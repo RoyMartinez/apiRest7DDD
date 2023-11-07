@@ -5,19 +5,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class ClientController : Controller
     {
-        private readonly IClientRepository _clientRepository;
+        private readonly IEntityFrameworkClientRepository _client;
 
-        public ClientController(IClientRepository clientRepository)
+        public ClientController(IEntityFrameworkClientRepository clientRepository)
         {
-            _clientRepository = clientRepository;
+            _client = clientRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetClients([FromQuery] int pageSize = 10, [FromQuery] int pageNumber = 1)
         {
-            var clients = await _clientRepository.GetAllAsync(pageSize, pageNumber);
+            var clients = await _client.GetAllAsync(pageSize, pageNumber);
             var clientDTOs = MapClientsToDTOs(clients.ToList());
             return Ok(clientDTOs);
         }
@@ -25,7 +27,7 @@ namespace Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetClient(Guid id)
         {
-            var client = await _clientRepository.GetByIdAsync(id);
+            var client = await _client.GetByIdAsync(id);
             if (client == null)
             {
                 return NotFound();
@@ -44,8 +46,8 @@ namespace Presentation.Controllers
             }
 
             var client = MapDTOToClient(clientDTO);
-            _clientRepository.Create(client);
-            _clientRepository.SaveChanges();
+            _client.Create(client);
+            _client.SaveChanges();
 
             return CreatedAtAction("GetClient", new { id = client.Id }, clientDTO);
         }
@@ -58,16 +60,16 @@ namespace Presentation.Controllers
                 return BadRequest();
             }
 
-            var existingClient = await _clientRepository.GetByIdAsync(id);
+            var existingClient = await _client.GetByIdAsync(id);
             if (existingClient == null)
             {
                 return NotFound();
             }
 
             existingClient.Name = clientDTO.Name;
-            _clientRepository.Update(existingClient);
+            _client.Update(existingClient);
 
-            _clientRepository.SaveChanges();
+            _client.SaveChanges();
 
             return NoContent();
         }
@@ -75,15 +77,15 @@ namespace Presentation.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClient(Guid id)
         {
-            var client = await _clientRepository.GetByIdAsync(id);
+            var client = await _client.GetByIdAsync(id);
             if (client == null)
             {
                 return NotFound();
             }
 
-            _clientRepository.Delete(client);
+            _client.Delete(client);
 
-            _clientRepository.SaveChanges();
+            _client.SaveChanges();
             return NoContent();
         }
 

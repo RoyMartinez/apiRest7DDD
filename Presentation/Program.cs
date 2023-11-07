@@ -1,4 +1,5 @@
 using Domain.Interfaces.Repositories;
+using Infrastructure.Dapper.Repositories;
 using Infrastructure.EntityFramework;
 using Infrastructure.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +20,8 @@ builder.Services.AddDbContext<ApiRestDbContext>(options => {
 });
 
 
-builder.Services.AddScoped<IClientRepository, ClientRepository>();
-
+builder.Services.AddScoped<IEntityFrameworkClientRepository, ClientRepository>();
+builder.Services.AddScoped<IDapperVendorRepository, DapperVendorRepository>();
 
 
 var app = builder.Build();

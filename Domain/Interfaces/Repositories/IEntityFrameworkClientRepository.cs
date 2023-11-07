@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Repositories
 {
-    public interface IClientRepository : IRepositoryBase<Client>
+    public interface IEntityFrameworkClientRepository : IEntityFrameworkBaseRepository<Client>
     {
     }
 }
