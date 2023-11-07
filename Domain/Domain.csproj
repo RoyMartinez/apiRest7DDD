@@ -7,9 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Enums\" />
     <Folder Include="ValueObjects\" />
     <Folder Include="Primitives\" />
