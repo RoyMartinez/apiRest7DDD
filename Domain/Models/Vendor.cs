@@ -10,5 +10,7 @@ namespace Domain.Models
     {
         public required string Name { get; set; }
         public required string EmployeeSerial { get; set; }
+
+        public virtual ICollection<Sales> Sales { get; set; }=new List<Sales>();
     }
 }
